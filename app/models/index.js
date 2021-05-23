@@ -27,4 +27,24 @@ db.sequelize = sequelize
 db.user = require('../models/user.model')(sequelize, Sequelize)
 db.role = require('../models/role.model')(sequelize, Sequelize)
 
+/** 
+ * Create a new 'user_roles' table
+ * Table usage for bridging between 'users' and 'roles' table 
+ * Many-to-Many relationship
+*/
+
+db.role.belongsToMany(db.user, {
+  through: 'user_roles',
+  foreignKey: 'roleId',
+  otherKey: 'userId'
+})
+
+db.user.belongsToMany(db.role, {
+  through: 'user_roles',
+  foreignKey: 'userId',
+  otherKey: 'roleId'
+})
+
+db.ROLES = ['user', 'admin', 'moderator']
+
 module.exports = db
