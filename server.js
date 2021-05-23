@@ -46,6 +46,9 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to My Application.' })
 })
 
+require('./app/routes/auth.routes')(app)
+require('./app/routes/user.routes')(app)
+
 // Set port, listen for requests
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
